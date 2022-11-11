@@ -1,0 +1,39 @@
+service: aws-node-express-dynamodb-api-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+
+  memberDetailfunction:
+  params:
+    handler: member.handler1
+    events:
+      - httpApi:
+          method: ANY
+          path: /members/{param}
+          
+  memberfunction:
+    handler: member.handler2
+    events:
+      - httpApi:
+          path: /members
+          method: '*'
+
+  taskDetailfunction:
+  params:
+    handler: task.handler1
+    events:
+      - httpApi:
+          method: ANY
+          path: /tasks/{param}
+          
+  taskfunction:
+    handler: tasks.handler2
+    events:
+      - httpApi:
+          path: /tasks
+          method: '*'
+          
