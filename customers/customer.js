@@ -49,17 +49,12 @@ app.get("/", (req, res) => {
  app.post("/taskDetails", async function (req, res)  {
 
   request.get('http://localhost:3000/memberdetails',options, await function(err,resps,body){
-    console.log("p1");
     
-    
-    //try{
-      //console.log("oooo",req.body)
        var arr1= (req.body);
-    /// console.log("pppp",(resps.body),"sddddddddddd")
     
         let result = JSON.parse(resps.body).filter(o1 => !arr1.some(o2 => o1.Member_ID === o2.Member_ID)); 
-       console.log(result) ;
-       if(result.length>0){
+       console.log("rest",result.length) ;
+       if(result.length<0){
         res.send("Member Id missng");
         return;
        }else {

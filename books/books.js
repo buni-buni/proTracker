@@ -59,10 +59,42 @@ app.post("/memberdetails", (req, res) => {
     });
 });
 
+app.post("/memberdetails", (req, res) => {
+  console.log(req.body.Skillset.split(','));
+  if(req.body.Total_Exp<4){
+    res.status(400).send('Experience too low');
+    return;
+  }
+  if(req.body.Skillset.split(',').length<3) {
+    res.status(400).send('Skill do not match');
+    return;
+  }
+  if(req.body.Project_start_date > req.body.Project_start_date) {
+    res.status(400).send('End date is less than start date');
+    return;
+  }
+  if(req.body.Allocation_percentage > 100) {
+    res.status(400).send('Please enter allocation in %');
+    return;
+  }
+  const memberdetails = new MemberDetails(req.body);
+  memberdetails
+    .save()
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+});
+
 app.get("/memberdetails", (req, res) => {
   MemberDetails.find().sort({Total_Exp: -1})
     .then((data) => {
-      console.log(data,"data")
+
+  //     data=data.sort(function(x,y){return y["Total_Exp"]-x["Total_Exp"]});
+  //  console.log("sorted data",data);
+      //console.log(data,"data")
       res.status(200).send(data);
     })
     .catch((err) => {
