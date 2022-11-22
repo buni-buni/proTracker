@@ -1,14 +1,15 @@
-service: aws-node-express-dynamodb-api-project
+service: projectManagement
 frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs14.x
-
+  httpApi:
+    cors: true
+    
 functions:
 
   memberDetailfunction:
-  params:
     handler: member.handler1
     events:
       - httpApi:
@@ -20,20 +21,20 @@ functions:
     events:
       - httpApi:
           path: /members
-          method: '*'
+          method: ANY
 
   taskDetailfunction:
-  params:
     handler: task.handler1
     events:
       - httpApi:
-          method: ANY
           path: /tasks/{param}
+          method: ANY
           
   taskfunction:
-    handler: tasks.handler2
+    handler: task.handler2
     events:
       - httpApi:
           path: /tasks
-          method: '*'
+          method: ANY
+
           
