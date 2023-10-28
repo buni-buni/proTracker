@@ -1,0 +1,26 @@
+service: projectManagement
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  httpApi:
+    cors: true
+    
+functions:
+
+  userfunction:
+    handler: user.handler1
+    events:
+      - httpApi:
+          method: ANY
+          path: /user/list/{param}
+          
+  userfunction:
+    handler: user.handler2
+    events:
+      - httpApi:
+          path: /user/list
+          method: ANY
+
+          
